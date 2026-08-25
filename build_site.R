@@ -80,7 +80,7 @@ group_for <- function(relative_path) {
     return("Tips & Resources")
   }
 
-  "Course Materials"
+  "Other Resources"
 }
 
 find_rendered_html <- function(source_path, slug) {
@@ -220,50 +220,62 @@ render_homepage <- function(items) {
     "Practice & Study Guides",
     "Exams",
     "Tips & Resources",
-    "Course Materials"
+    "Other Resources"
   )
   active_groups <- group_order[group_order %in% vapply(items, `[[`, character(1), "group")]
 
   sections <- vapply(active_groups, function(group) {
     group_items <- items[vapply(items, `[[`, character(1), "group") == group]
-    cards <- vapply(group_items, function(item) {
+    rows <- vapply(group_items, function(item) {
       paste0(
-        '<li class="resource-item">',
+        "<tr>",
+        '<td class="resource-title">',
         '<a class="resource-link" href="', item$slug, '/">',
-        '<span class="resource-title">', html_escape(item$title), "</span>",
-        '<span class="resource-file">', html_escape(basename(item$source_path)), "</span>",
+        html_escape(item$title),
         "</a>",
-        "</li>"
+        "</td>",
+        '<td class="resource-file">', html_escape(basename(item$source_path)), "</td>",
+        "</tr>"
       )
     }, character(1))
+    item_count <- length(group_items)
+    count_label <- paste(item_count, if (item_count == 1L) "entry" else "entries")
 
     paste0(
-      '<section class="resource-section" aria-labelledby="',
-      slugify(group),
-      '">',
-      '<h2 id="', slugify(group), '">', html_escape(group), "</h2>",
-      '<ul class="resource-list">', paste(cards, collapse = "\n"), "</ul>",
-      "</section>"
+      '<details class="resource-section" id="', slugify(group), '">',
+      "<summary>",
+      '<span class="resource-section__title">', html_escape(group), "</span>",
+      '<span class="resource-section__count">', count_label, "</span>",
+      "</summary>",
+      '<div class="resource-table-wrap">',
+      '<table class="resource-table">',
+      "<thead><tr><th scope=\"col\">Resource</th><th scope=\"col\">Source file</th></tr></thead>",
+      "<tbody>", paste(rows, collapse = "\n"), "</tbody>",
+      "</table>",
+      "</div>",
+      "</details>"
     )
   }, character(1))
 
   body <- paste0(
     '<header class="course-hero">',
     '<div class="course-hero__inner">',
-    '<p class="eyebrow">BIOL 4994 / 4991 · BIOL 6994 / 6997</p>',
+    '<p class="eyebrow">',
+    '<a class="course-home-link" href="https://romerocruzsa.github.io/" ',
+    'aria-label="Back to the personal homepage">',
+    '<span class="course-home-link__arrow" aria-hidden="true">←</span>',
+    "<span>BIOL 4994 / 4991 · BIOL 6994 / 6997</span>",
+    "</a>",
+    "</p>",
     "<h1>Introduction to R for Biologists</h1>",
     '<p class="course-hero__lead">Course prompts, assignments, study guides, and practical R resources.</p>',
     '<p class="course-hero__languages">',
-    "<strong>Español:</strong> Aquí encontrarás los materiales y tutoriales de R que desarrollaremos durante la clase.<br>",
+    "<strong>Espa&ntilde;ol:</strong> Aqu&iacute; encontrar&aacute;s los materiales y tutoriales de R que desarrollaremos durante la clase.<br>",
     "<strong>English:</strong> Here you will find the R materials and tutorials we will work on during class.",
     "</p>",
     "</div>",
     "</header>",
     '<main id="main-content" class="course-page course-page--home">',
-    '<div class="home-intro">',
-    "<h2>Course materials</h2>",
-    "<p>Select a resource below. Each file has a stable URL that can be shared directly.</p>",
-    "</div>",
     paste(sections, collapse = "\n"),
     "</main>",
     '<footer class="course-footer">',
@@ -332,7 +344,7 @@ group_rank <- c(
   "Practice & Study Guides" = 2L,
   "Exams" = 3L,
   "Tips & Resources" = 4L,
-  "Course Materials" = 5L
+  "Other Resources" = 5L
 )
 item_order <- order(
   group_rank[vapply(items, `[[`, character(1), "group")],
