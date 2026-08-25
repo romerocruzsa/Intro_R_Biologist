@@ -1,0 +1,30 @@
+---
+title: "Assigment 4"
+subtitle: ''
+author: "Pablo E. Gutiérrez-Fonseca"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+---
+
+### Deadline / Fecha de entrega
+**Deadline:** Friday, Nov 31, 2025; 11:59 PM.  
+**Fecha de entrega:** Viernes, 31 de noviembre de 2025; 11:59 PM.
+
+### Instructions / Instrucciones generales
+
+- This assignment consists of **uploading a plot and a brief paragraph (~250 words) summarizing your findings**.
+(Esta tarea consiste en subir un gráfico y un párrafo breve (~250 palabras) resumiendo tus hallazgos.)
+
+- In your paragraph, include the background of the data, what you did, how you did it, and what you found.
+(En tu párrafo, incluye el contexto de los datos, qué hiciste, cómo lo hiciste y qué encontraste.)
+
+- Submit your HTML file exported/knit from the .Rmd. Do not submit screenshots unless requested.
+(Entrega el archivo HTML generado/kniteado desde el .Rmd. No envíes capturas de pantalla a menos que se indique.)
+
+- Your paragraph should briefly summarize your workflow and findings. For example:
+(Tu párrafo debe resumir brevemente tu flujo de trabajo y hallazgos. Por ejemplo:)
+
+- I analyzed the data of tyre performance. I visualized it using ggplot() and then ran a one-way ANOVA. We checked for normality of residuals and found that the residuals were approximately normally distributed. I ran a Tukey post-hoc test. I found that the high-performance tyres were Brand X, and the lower-performance tyres were Brand Y and Z.
+
+- Analicé los datos del desempeño de los neumáticos. Los visualicé usando ggplot() y luego ejecutamos un ANOVA de una vía. Verificamos la normalidad de los residuos y encontramos que los residuos estaban aproximadamente distribuidos normalmente. Ejecuté la prueba post-hoc de Tukey. Encontré que los neumáticos de alto desempeño fueron la marca X y los de menor desempeño fueron las marcas Y y Z.
+
+<br><br><br>

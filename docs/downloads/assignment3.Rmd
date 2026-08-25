@@ -1,0 +1,116 @@
+---
+title: "Assignment 3"
+subtitle: ''
+author: "Pablo E. Gutiérrez-Fonseca"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+---
+
+### Deadline / Fecha de entrega
+**Deadline:** Friday, Sept 19, 2025; 11:59 PM.  
+**Fecha de entrega:** Viernes, 19 de septiembre de 2025; 11:59 PM.
+
+### Instructions / Instrucciones generales
+
+- This assignment consists of 10 questions, each worth **10 points**.  
+(Esta tarea consta de 10 preguntas, cada una vale **10 puntos**.)
+
+- Write your answers in R code chunks whenever applicable.  
+(Escribe tus respuestas en chunks de R cuando sea aplicable.)
+
+- Make sure your code runs without errors. Include comments if necessary.  
+(Asegúrate de que tu código se ejecute sin errores. Incluye comentarios si es necesario.)
+
+- **Always display at least 6 rows of output for each question using head(..., 6) or more, so you can clearly see the results in your HTML file. (Siempre muestra al menos 6 filas de salida para cada pregunta usando head(..., 6) o más, para que puedas ver claramente los resultados en tu archivo HTML.)**
+
+- For questions about chunk options, experiment with the options and write down your observations.  
+(Para preguntas sobre opciones de chunks, experimenta con ellas y escribe tus observaciones.)
+
+- Submit the assignment on your personal webpages using the **HTML file** exported/knit from the `.Rmd`.  
+Do not copy output screenshots unless requested.  
+(Entrega la tarea en tus páginas personales usando el **archivo HTML** generado/kniteado desde el `.Rmd`.  
+No copies capturas de pantalla del resultado a menos que se indique.)
+
+<br><br><br>
+
+Install necessary packages (only run once if not installed).
+Instalar los paquetes necesarios (solo ejecutar una vez si no están instalados).
+```{r, message =F}
+# install.packages("gapminder")
+# install.packages("dplyr")
+library(dplyr)
+library(gapminder)
+data(gapminder)
+head(gapminder)
+```
+<br><br><br>
+
+**Q1.** What class is the gapminder dataset? 
+**Q1.** ¿Qué clase es el dataset gapminder?
+```{r}
+# Your output here 
+```
+<br><br>
+
+**Q2.** Filter a section of gapminder with a life expectancy smaller than 29.
+**Q2.** Filtrar una sección de gapminder con esperanza de vida menor a 29.
+```{r}
+# Your output here 
+```
+<br><br>
+
+**Q3** Filter the dataset for the country **Rwanda** and for years greater than 1979.
+**Q3** Filtrar el dataset para el país **Ruanda** y para años mayores a 1979.
+```{r}
+# Your output here 
+```
+<br><br>
+
+**Q4**Create a new dataset from **gapminder** excluding the **column gdpPercap**.
+**Q4** Crear un nuevo dataset a partir de **gapminder** excluyendo la **columna gdpPercap**.
+```{r}
+# Your output here 
+```
+<br><br>
+
+
+**Q5** Arrange the dataset in ascending order of lifeExp.**Q5** Ordenar el dataset en orden ascendente según lifeExp.
+```{r}
+# Your output here 
+```
+<br><br>
+
+
+**Q6** Arrange the dataset in descending order of lifeExp. **Q6** Ordenar el dataset en orden **descendente** según lifeExp.
+```{r}
+# Your output here 
+```
+<br><br>
+
+
+**Q7** Create a new dataset with only the columns year and lifeExp. **Q7** Crear un nuevo dataset con solo las columnas year y lifeExp.
+```{r}
+# Your output here 
+```
+<br><br> 
+
+**Q8** Filter the dataset for the country Cambodia and show only the columns year and lifeExp. **Q8** Filtrar el dataset para el país Camboya y mostrar únicamente las columnas year y lifeExp.
+```{r}
+# Your output here 
+```
+<br><br> 
+
+
+**Q9.** Select only the countries in Africa. **Q9.** Seleccionar únicamente los países que están en África.
+```{r}
+# Your output here 
+```
+<br><br> 
+
+**Q10.** Create a new column called **lifeExp_months** that shows life expectancy in months.
+**Q10.** Crear una nueva columna llamada **lifeExp_months** que muestre la esperanza de vida en meses.
+```{r}
+# Your output here 
+```
+<br><br> 
+
+

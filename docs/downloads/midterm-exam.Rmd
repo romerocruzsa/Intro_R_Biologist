@@ -1,0 +1,146 @@
+---
+title: "Midterm Exam"
+author: "Pablo E. Gutiérrez-Fonseca"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output:
+  html_document:
+    df_print: paged
+subtitle: ''
+---
+<br><br>
+
+### General Instructions / Instrucciones Generales
+
+- This is the Midterm-Exam. Each question is worth 20 points.
+Este es el examen parcial. Cada pregunta vale 20 puntos.
+<br>
+
+- You must choose 5 out of the 6 questions to answer. **Your maximum score is therefore 100 points.**<br>
+Debe escoger 5 de las 6 preguntas para contestar.
+Su puntaje máximo será 100 puntos.
+<br>
+
+- It is highly recommended that all your results, including tables and outputs, are always visible in your R Markdown document.
+Es altamente recomendado que todos los resultados, incluidas las tablas y salidas, sean siempre visibles en su documento de R Markdown.
+<br>
+
+- The exam must be completed and submitted during class time, on **Thursday, October 9, 2025, from 3:00 to 6:00 PM.**
+El examen se debe realizar y entregar durante el tiempo de clase, es decir, jueves 9 de octubre, de 3 a 6 pm.
+<br>
+
+- Use R and the tidyverse packages to answer all questions.
+Utilice R y los paquetes tidyverse para contestar todas las preguntas.
+<br>
+
+- Work independently and make sure your code is reproducible.
+Trabaje de manera independiente y asegúrese de que su código sea reproducible.
+<br><br><br>
+
+```{r message=F}
+library(tidyverse)
+library(dplyr)
+library(aod)
+```
+
+```{r, echo=TRUE, results='hide', message=FALSE}
+msleep <- glimpse(msleep)
+storms <- storms
+lizards <- lizards
+```
+
+```{r, include=T}
+head(msleep)
+head(storms)
+head(lizards)
+```
+<br><br><br>
+
+### **[Mammals sleep dataset](https://vincentarelbundock.github.io/Rdatasets/doc/ggplot2/msleep.html) `(msleep)`**
+<br>
+
+**Context / Contexto:** You are experts in Mammalogy, and your field technicians have collected data on sleep behavior in different mammal species. Now you must begin exploring how these patterns relate to activity and daily rhythms.<br>
+Ustedes son expertos en Mastozoología, y sus técnicos de campo han recolectado datos sobre el comportamiento de sueño en distintas especies de mamíferos. Ahora deben comenzar a explorar cómo estos patrones se relacionan con la actividad y los ritmos diarios.
+<br><br>
+
+1. **Use `filter()` to subset msleep to only animals who are awake for at least 12 hours of the day.**<br>
+Usa filter() para seleccionar del dataset msleep solo los animales que están despiertos al menos 12 horas al día.<br>
+- **Hint:** “At least” like saying “greater than or equal to,” i.e. `>=`
+- **Sugerencia:** “Al menos” significa mayor o igual a (>=).
+```{r include=FALSE}
+msleep %>%
+  filter(awake >= 12)
+```
+<br><br> 
+
+2. **Use mutate() to create a new column called `percent_day_awake` that gives the percentage of the day that each species spends awake. Use `select()` with `everything()` at the end to verify your calculation.**<br>
+Usa mutate() para crear una nueva columna llamada percent_day_awake que muestre el porcentaje del día que cada especie permanece despierta. Usa select() con everything() al final para comprobar que tus cálculos son correctos.
+
+- **Hint:** A day has 24 hours. The column awake indicates the average hours a species is awake per day. Calculate the percentage with `(col / 24) * 100`.<br>
+- **Sugerencia:** Un día tiene 24 horas. La columna awake indica cuántas horas al día, en promedio, está despierta cada especie. Calcula el porcentaje con `(col / 24) * 100`.
+```{r include=F}
+msleep %>%
+  mutate(percent_day_awake = (awake / 24) * 100) %>%
+  select(percent_day_awake, everything())
+```
+<br><br>
+
+### **[Storm tracks data](https://vincentarelbundock.github.io/Rdatasets/doc/dplyr/storms.html) `(storms)`**
+<br>
+
+**Context / Contexto:** You are part of a climatology research group analyzing storm trajectories in the Atlantic. Your team has assembled a long-term dataset, and your task is to start identifying temporal trends and patterns in storm intensity.<br>
+Ustedes forman parte de un grupo de investigación en climatología que analiza trayectorias de tormentas en el Atlántico. Su equipo ha reunido un dataset de largo plazo, y su tarea es comenzar a identificar tendencias temporales y patrones de intensidad.
+<br><br>
+
+3. **Use `group_by()` and `summarise()` to calculate the number of storms per year.**<br>
+Agrupa los datos por año y calcula el número de tormentas que ocurrieron cada año.
+- **Hint** group_by(col) groups the rows by time, and summarise(num_storms = n()) counts how many rows (storms) there are per year.
+- **Sugerencia:** group_by(col) agrupa las filas por tiempo, y summarise(num_storms = n()) cuenta cuántas filas (tormentas) hay por año.
+```{r include=F}
+storms %>%
+  group_by(year) %>%
+  summarise(num_storms = n())
+```
+<br><br>
+
+4. **Use filter() to subset storms to only storms with wind speeds greater than 50 knots, then use arrange() to sort by wind descending.**<br> Filtra el dataset para quedarte solo con tormentas que tengan velocidad de viento mayor a 50 nudos, y luego ordénalas de mayor a menor velocidad de viento.
+- **Hint** Use `filter(col > 50)` to select strong storms, and `arrange(desc(col))` to sort the results from highest to lowest.
+- **Sugerencia:**  Usa `filter(col > 50)` para seleccionar las tormentas fuertes, y `arrange(desc(col))` para ordenar los resultados de mayor a menor.
+
+```{r include=F}
+storms %>%
+  filter(wind > 50) %>%
+  arrange(desc(wind))
+```
+<br><br> 
+
+### **[A Comparison of Site Preferences of Two Species of Lizard](https://vincentarelbundock.github.io/Rdatasets/doc/aod/lizards.html) `(lizards)`**
+<br>
+
+**Context / Contexto:** You are field ecologists studying habitat use by two Anolis species. Your team has spent weeks observing their behavior at different times of day and in varying microhabitats. Now it’s time to analyze the data to test your hypotheses.<br>
+Ustedes son ecólogos de campo que estudian el uso del hábitat de dos especies de Anolis. Su equipo ha pasado semanas observando su comportamiento a distintas horas del día y en diferentes microhábitats. Ahora es momento de analizar los datos para poner a prueba sus hipótesis.
+<br><br>
+
+5. **Determine which `Site` and `Diameter` combination has the `highest total grahami`.**<br>
+Determina cuál combinación de `Sitio` y `Diámetro` tiene el `total de grahami más alto`.
+- **Hint:** group_by(col1, col2) %>% summarise(new_var = sum(var)) %>% arrange(desc(new_var))
+- **Sugerencia:** Usa `group_by(col1, col2)` %>% `summarise(new_var = sum(var)) %>% arrange(desc(new_var))`
+```{r message=F, include=F}
+lizards %>%
+  group_by(Site, Diameter) %>%
+  summarise(total_grahami = sum(grahami)) %>%
+  arrange(desc(total_grahami))
+```
+<br><br>
+
+6. **Identify which Time of day has the highest average opalinus count.**<br>
+Identifica en qué Momento del día se registra el promedio más alto de opalinus.
+- **Hint:** Use group_by(col1) %>% summarise(new_name = mean(var)) %>% arrange(desc(new_name))
+- **Sugerencia:** Usa group_by(col1) %>% summarise(new_name = mean(var)) %>% arrange(desc(new_name))
+```{r include=F}
+lizards %>%
+  group_by(Time) %>%
+  summarise(avg_opalinus = mean(opalinus)) %>%
+  arrange(desc(avg_opalinus))
+
+```
+<br><br><br><br>

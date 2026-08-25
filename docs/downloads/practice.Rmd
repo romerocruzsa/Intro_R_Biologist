@@ -1,0 +1,116 @@
+---
+title: "Exam Practice"
+subtitle: ''
+author: "Pablo E. Gutiérrez-Fonseca"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+---
+
+### Load libraries
+
+```{r message=F}
+library(readxl)
+library(dplyr)
+```
+
+### Practice data manupulation using Base R
+
+The data in **cereal.csv** includes nutrition information collected from breakfast cereals. The data, which were provided by (Lock:2020?), were obtained from <http://nutritionresource.com/>.
+
+-   The attributes included in the data are:
+    -   name: Brand name of cereal
+    -   company: Manufacturer (G=General Mills, K=Kellog’s or Q=Quaker)
+    -   serving: Serving size (in cups)
+    -   calories: Calories (per cup)
+    -   fat: Fat (grams per cup)
+    -   sodium: Sodium (mg per cup)
+    -   carbs: Carbohydrates (grams per cup)
+    -   fiber: Dietary Fiber (grams per cup)
+    -   sugars: Sugars (grams per cup)
+    -   protein: Protein (grams per cup)
+
+```{r}
+cereal <- read_excel("cereal.xlsx")
+head(cereal)
+```
+<br> 
+
+#### Five question (**2 pts**):
+
+1.  Extract rows 1 to 10 from the cereal data frame. (*Extraiga las filas 1 a 10 del marco de datos cereal.*)
+2.  Create a new data frame called Kelloggs that only contains rows where company == "K". (*Cree un nuevo marco de datos llamado Kelloggs que solo contenga las filas donde company == "K".*)
+3.  From the cereal data, extract the names of all cereals that have more than 10 grams of sugar. (*Del conjunto de datos cereal, extraiga los nombres de todos los cereales que tienen más de 10 gramos de azúcar.*)
+4.  Find the mean calories of all cereals in the dataset. (*Encuentre las calorías promedio de todos los cereales en el conjunto de datos.*)
+5.  Count how many cereals have fiber greater than or equal to 2 grams (*Cuente cuántos cereales tienen fibra mayor o igual a 2 gramos.*).
+
+```{r include=FALSE}
+# 1. Extract rows 1 to 10
+cereal[1:10, ]
+
+# 2. Create new data frame with only Kelloggs cereals
+Kelloggs <- cereal[cereal$company == "K", ]
+Kelloggs
+
+# 3. Names of cereals with more than 10 grams of sugar
+cereal$name[cereal$sugars > 10]
+
+# 4. Mean calories of all cereals
+mean(cereal$calories)
+
+# 5. Count cereals with fiber >= 2 grams
+length(cereal$fiber[cereal$fiber >= 2])
+# (alternative: sum(cereal$fiber >= 2))
+```
+<br><br>
+
+**English**
+In the cereal dataset, the first ten rows include cereals such as [names of some cereals from the first 10 rows], showing a range of values for calories, sugar, and fiber. Filtering for cereals from the company Kellogg’s gives a subset containing brands like [examples of Kellogg’s cereals], while focusing on cereals with more than 10 grams of sugar identifies products such as [names of high-sugar cereals]. The mean calories of all cereals in the dataset is approximately [mean calorie value], providing a general idea of the energy content of these products. Finally, counting cereals with at least 2 grams of fiber shows that [number of cereals with ≥2g of fiber] cereals meet a minimum dietary fiber content. This analysis helps to better understand the nutritional characteristics of the different cereals in the dataset.
+
+**Espanol**
+En el conjunto de datos cereal, las primeras diez filas incluyen cereales como [nombre de algunos cereales de las primeras 10 filas], mostrando un rango de valores en calorías, azúcar y fibra. Al filtrar los cereales de la empresa Kellogg’s, se obtiene un subconjunto que contiene marcas como [ejemplo de cereales Kellogg’s], mientras que al enfocarnos en los cereales con más de 10 gramos de azúcar, encontramos productos como [nombres de cereales con alto contenido de azúcar]. El promedio de calorías de todos los cereales en el dataset es de aproximadamente [valor promedio de calorías], lo que proporciona una idea general del contenido energético de los productos. Finalmente, al contar los cereales con al menos 2 gramos de fibra, se identifican [número de cereales con ≥2g de fibra] cereales, indicando cuántos cumplen con un contenido mínimo de fibra dietética. Este análisis permite comprender mejor las características nutricionales de los diferentes cereales del conjunto de datos.
+
+<br><br><br>
+
+
+### Practice data manupulation using **dplyr** and **ktable**
+
+The data in EquationCitations.csv includes information on the number of equations and citations for evolutionary biology publications. The data were obtained from Fawcett and Higginson (2012) and the online supplement (<https://www.pnas.org/doi/suppl/10.1073/pnas.1205259109/suppl_file/sd01.xlsx> ).
+
+-   The attributes included in the data are:
+-   journal: Journal in which the paper was published (The American Naturalist, Evolution, Proceedings of the Royal Society of London B: Biological Sciences)
+-   authors: Names of authors
+-   volume: Volume in which the paper was published
+-   startpage: Starting page of publication
+-   pages: Number of pages
+-   equations: Number of equations in total
+-   mainequations: Number of equations in main text
+-   appequations: Number of equations in appendix
+-   cites: Number of citations in total
+-   selfcites: Number of citations by the authors themselves
+-   othercites: Number of citations by other authors
+-   theocites: Number of citations by theoretical papers
+-   nontheocites: Number of citations by nontheoretical papers
+
+**Details:** Fawcett and Higginson (2012) investigate how the number of equations in evolutionary biology papers affects citation counts. They found that papers with many mathematical equations receive fewer citations, especially from nontheoretical papers.
+
+**Source:** Online supplements to Fawcett and Higginson (2012) <https://www.pnas.org/doi/suppl/10.1073/pnas.1205259109/suppl_file/sd01.xlsx>
+
+**References:** Fawcett, T.W. and Higginson, A.D. (2012). Heavy Use of Equations Impedes Communication among Biologists. PNAS – Proceedings of the National Academy of Sciences of the United States of America, 109, 11735–11739. <doi:10.1073/pnas.1205259109>
+<br><br>
+
+```{r}
+articles <- read.csv("EquationCitations.csv")
+head(articles)
+```
+<br><br>
+
+### Question (**10 pts**):
+The journal Proceedings of the National Academy of Sciences has asked you to revisit the data from Fawcett and Higginson (2012) on the use of equations in evolutionary biology papers. They are particularly interested in two things:
+
+1. On average, how many equations per article are published in each journal? (Hint: use group_by() and summarise())
+
+2. For each journal, calculate the average proportion of theoretical citations relative to total citations. (Hint: create a new column with mutate(theo_ratio = theocites / cites), then group_by() and summarise())
+<br><br>
+
+#### **Potential findings:**<br> 
+My findings showed that, on average, the number of equations per article varied among journals. In particular, The American Naturalist, Evolution, and Proceedings of the Royal Society B showed differences, with the average ranging from ______ (Am. Nat.) to ______ (Evolution) to ______ (Proc. B) equations per article. In terms of citations, the proportion of theoretical citations relative to total citations also varied by journal. On average, articles in The American Naturalist had a mean theoretical citation ratio of _____, those in Evolution had _____, and those in Proceedings B had _____.
+<br><br><br><br>

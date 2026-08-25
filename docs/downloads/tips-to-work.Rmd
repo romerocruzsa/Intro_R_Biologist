@@ -1,0 +1,103 @@
+---
+title: "Remembering for work in RMardown"
+subtitle: ""
+author: "Pablo E. Guti\u00E9rrez-Fonseca, PhD"
+institute: "<br>"
+date: "BIOL-4994 & BIOL-4991 | BIOL-6994 & BIOL-6997 <br> Fall 2025 <br>
+2025-Aug-01 (updated: `r format(Sys.Date(), '%Y-%b-%d')`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, "css/nhsr.css", "css/nhsr-fonts.css", "css/custom.css"]
+    nature:
+      highlightLanguage: r
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true 
+      countIncrementalSlides: true
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html] #this is for logos in all slides
+xaringanExtra:
+    use_panelset: true
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(readxl)
+library(dplyr)
+library(readr)
+library(lessR)
+library(ggplot2)
+library(ggpubr)
+library(cowplot)
+library(patchwork)
+library(palmerpenguins)
+library(car)
+library(ggforce) # for geom_circle
+library(RVAideMemoire) #shapiro.test
+library(DiagrammeR)
+#knitr::opts_chunk$set(dpi= 100)
+library(countdown)
+library(knitr)
+library(kableExtra)
+xaringanExtra::use_panelset()
+xaringanExtra::use_scribble()
+xaringanExtra::use_search(show_icon = FALSE, position= "bottom-left") # Search
+xaringanExtra::use_progress_bar(color = "#0051BA", location = "bottom", 
+                                height = "4px")
+xaringanExtra::use_clipboard() # Copy Code 
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+xaringanExtra::use_editable(expires = 1) # Add textboxes to edit during presentation
+```
+
+# Checklist útil para cuando trabajen en R
+### (esto les puede ahorrar tiempo y frustración antes de pedirme ayuda)
+
+---
+# Comillas
+1. Verifiquen que todas las **comillas** estén cerradas al cargar archivos `.csv`, `.txt` o `.xlsx`.
+```{r eval=FALSE}
+data <- read.csv("data.csv") # Error si falta una comilla
+```
+
+---
+# Working Directory en R Markdown
+- **Por defecto**: el working directory es la carpeta donde está guardado el `.Rmd`.  
+- Esto significa que las rutas de archivos (`.csv`, `.txt`, `.xlsx`) se interpretan **relativas a esa carpeta**.
+```{r eval=FALSE}
+1. Mismo folder
+├── analisis.Rmd
+├── datos.csv
+
+data <- read.csv("datos.csv")
+```
+
+```{r eval=FALSE}
+2. Subcarpeta dentro del folder del .Rmd
+Proyecto/
+├── analisis.Rmd
+└── data/
+    └── datos.csv
+
+data <- read.csv("data/datos.csv")
+```
+
+---
+# Paréntesis y corchetes
+- Chequeen que todos los paréntesis, corchetes y llaves estén cerrados.
+```{r eval=F}
+1. Correcto
+library(dplyr)
+iris %>%
+  mutate(sepal_ratio = (Sepal.Length + 2) * (Sepal.Width + 4))
+```
+
+```{r eval=F}
+2. Error (falta un paréntesis)
+iris %>%
+  mutate(sepal_ratio = (Sepal.Length + 2 * (Sepal.Width + 4))
+```
+
