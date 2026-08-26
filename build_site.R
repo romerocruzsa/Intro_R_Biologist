@@ -18,9 +18,18 @@ project_dir <- dirname(normalizePath(script_path, mustWork = TRUE))
 assignments_dir <- file.path(project_dir, "assignments")
 site_source_dir <- file.path(project_dir, "site")
 output_dir <- file.path(project_dir, "docs")
+stylesheet_source <- file.path(site_source_dir, "course.css")
 
 if (!dir.exists(assignments_dir)) {
   stop("Could not find the assignments directory.")
+}
+if (!file.exists(stylesheet_source)) {
+  stop("Could not find site/course.css.")
+}
+
+asset_version <- substr(unname(tools::md5sum(stylesheet_source)), 1L, 12L)
+versioned_stylesheet <- function(path) {
+  paste0(path, "?v=", asset_version)
 }
 
 html_escape <- function(value) {
@@ -133,7 +142,7 @@ page_document <- function(title, body, css_path = "assets/css/course.css") {
     '  <link rel="preconnect" href="https://fonts.googleapis.com">\n',
     '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n',
     '  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">\n',
-    '  <link rel="stylesheet" href="', css_path, '">\n',
+    '  <link rel="stylesheet" href="', versioned_stylesheet(css_path), '">\n',
     "</head>\n",
     '<body class="course-shell">\n',
     body,
@@ -172,7 +181,7 @@ inject_course_chrome <- function(html, download_path) {
     '  <link rel="preconnect" href="https://fonts.googleapis.com">', "\n",
     '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>', "\n",
     '  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">', "\n",
-    '  <link rel="stylesheet" href="../assets/css/course.css">', "\n"
+    '  <link rel="stylesheet" href="', versioned_stylesheet("../assets/css/course.css"), '">', "\n"
   )
 
   html <- sub(
@@ -238,14 +247,11 @@ render_homepage <- function(items) {
         "</tr>"
       )
     }, character(1))
-    item_count <- length(group_items)
-    count_label <- paste(item_count, if (item_count == 1L) "entry" else "entries")
 
     paste0(
       '<details class="resource-section" id="', slugify(group), '">',
       "<summary>",
       '<span class="resource-section__title">', html_escape(group), "</span>",
-      '<span class="resource-section__count">', count_label, "</span>",
       "</summary>",
       '<div class="resource-table-wrap">',
       '<table class="resource-table">',
@@ -257,14 +263,23 @@ render_homepage <- function(items) {
     )
   }, character(1))
 
+  resource_content <- if (length(sections)) {
+    paste0(
+      '<main id="main-content" class="course-page course-page--home">',
+      paste(sections, collapse = "\n"),
+      "</main>"
+    )
+  } else {
+    ""
+  }
+
   body <- paste0(
     '<header class="course-hero">',
     '<div class="course-hero__inner">',
     '<p class="eyebrow">',
     '<a class="course-home-link" href="https://romerocruzsa.github.io/" ',
     'aria-label="Back to the personal homepage">',
-    '<span class="course-home-link__arrow" aria-hidden="true">←</span>',
-    "<span>BIOL 4994 / 4991 · BIOL 6994 / 6997</span>",
+    '<span class="course-home-link__arrow" aria-hidden="true">&larr;</span>',
     "</a>",
     "</p>",
     "<h1>Introduction to R for Biologists</h1>",
@@ -275,13 +290,9 @@ render_homepage <- function(items) {
     "</p>",
     "</div>",
     "</header>",
-    '<main id="main-content" class="course-page course-page--home">',
-    paste(sections, collapse = "\n"),
-    "</main>",
+    resource_content,
     '<footer class="course-footer">',
-    "<p>Maintained throughout the semester · ",
-    '<a href="https://github.com/romerocruzsa/Intro_R_Biologist">View the source repository</a>',
-    "</p>",
+    "<p>Maintained throughout the semester</p>",
     "</footer>"
   )
 
@@ -308,8 +319,24 @@ source_paths <- list.files(
   ignore.case = TRUE
 )
 
-if (!length(source_paths)) {
-  stop("No .R or .Rmd assignment files were found.")
+hidden_sources_file <- file.path(site_source_dir, "hidden_sources.txt")
+hidden_sources <- if (file.exists(hidden_sources_file)) {
+  trimws(readLines(hidden_sources_file, warn = FALSE, encoding = "UTF-8"))
+} else {
+  character()
+}
+hidden_sources <- hidden_sources[
+  nzchar(hidden_sources) & !startsWith(hidden_sources, "#")
+]
+
+if (length(source_paths) && length(hidden_sources)) {
+  relative_source_paths <- vapply(
+    source_paths,
+    relative_to,
+    character(1),
+    base = assignments_dir
+  )
+  source_paths <- source_paths[!relative_source_paths %in% hidden_sources]
 }
 
 items <- lapply(source_paths, function(source_path) {
@@ -359,10 +386,6 @@ dir.create(output_dir, recursive = TRUE)
 dir.create(file.path(output_dir, "assets", "css"), recursive = TRUE)
 dir.create(file.path(output_dir, "downloads"), recursive = TRUE)
 
-stylesheet_source <- file.path(site_source_dir, "course.css")
-if (!file.exists(stylesheet_source)) {
-  stop("Could not find site/course.css.")
-}
 invisible(file.copy(
   stylesheet_source,
   file.path(output_dir, "assets", "css", "course.css"),

@@ -21,6 +21,10 @@ uses base R and pre-rendered HTML instead of Quarto or a server-side framework.
 4. Review `docs/index.html`, then commit the source and regenerated `docs/`
    files together.
 
+Inherited materials listed in `site/hidden_sources.txt` are excluded from the
+homepage, generated routes, and downloads. Remove a path from that file only
+when the material is ready to publish.
+
 The public URL is derived from the filename using lowercase kebab case. For
 example:
 

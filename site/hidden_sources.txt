@@ -1,0 +1,13 @@
+# Inherited course files excluded from the public website.
+assignment_1/homework1.Rmd
+assignment_2/assignments2.Rmd
+assignment_3/assignment3.Rmd
+assignment_4/assignment_4.Rmd
+assignment_5/assignment_5.Rmd
+exam practice/practice.Rmd
+exam practice/practice - Copy.Rmd
+exam practice/Study Guide.Rmd
+exam practice/Study Guide dplyr.Rmd
+final_exam/final_exam.Rmd
+midterm/midterm_exam.Rmd
+tips to work/tips to work.Rmd

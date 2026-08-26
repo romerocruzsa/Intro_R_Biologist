@@ -98,7 +98,8 @@ a:focus {
 }
 
 .course-home-link__arrow {
-  font-size: 19px;
+  min-width: 30px;
+  font-size: 32px;
   line-height: 1;
   transition: transform 0.15s ease;
 }
@@ -166,12 +167,12 @@ a:focus {
 }
 
 .resource-section {
+  width: 100%;
   margin: 0;
-  border-top: 1px solid var(--course-border);
 }
 
-.resource-section:last-child {
-  border-bottom: 1px solid var(--course-border);
+.resource-section + .resource-section {
+  margin-top: 10px;
 }
 
 .resource-section summary {
@@ -188,7 +189,7 @@ a:focus {
 }
 
 .resource-section summary::after {
-  margin-left: 4px;
+  margin-left: auto;
   color: var(--course-blue);
   content: "+";
   font-size: 24px;
@@ -202,24 +203,22 @@ a:focus {
 
 .resource-section__title {
   color: var(--course-red);
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 700;
-}
-
-.resource-section__count {
-  margin-left: auto;
-  color: var(--course-muted);
-  font-size: 13px;
+  line-height: 1.2;
 }
 
 .resource-table-wrap {
+  width: 100%;
   overflow-x: auto;
   padding-bottom: 14px;
 }
 
 .resource-table {
+  display: table;
   width: 100%;
   min-width: 540px;
+  table-layout: fixed;
   border-collapse: collapse;
   text-align: left;
 }
@@ -407,7 +406,7 @@ a:focus {
   }
 
   .resource-section__title {
-    font-size: 21px;
+    font-size: 24px;
   }
 
   .course-nav__inner {
