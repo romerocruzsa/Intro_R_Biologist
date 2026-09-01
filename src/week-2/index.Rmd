@@ -1,0 +1,30 @@
+---
+title: "R Markdown Basics"
+author: "Sebastián A. Cruz Romero"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output:
+  prettydoc::html_pretty:
+    theme: leonids 
+    highlight: github
+---
+<!-- # H1 header -->
+<!-- ## H2 header -->
+<!-- ### H3 header -->
+<!-- ### H4 header -->
+<!-- #### H5 header -->
+
+<!-- --- -->
+
+<!-- ## Chunks -->
+<!-- *Chunks* are pieces of R code executable once saved and displayed in your output, both the code snippet and the result. -->
+<!-- ```{r} -->
+<!-- 14+14 -->
+<!-- ``` -->
+<!-- ![](https://romerocruzsa.github.io/img/profile-picture.png) -->
+
+<p align="center">
+  <img src="https://romerocruzsa.github.io/img/profile-picture.png" style="width: 25%; aspect-ratio: 1 / 1;"/>
+</p>
+
+
+
