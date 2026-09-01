@@ -16,30 +16,11 @@ Bienvenidos a todos. En esta página encontrarán los prompts para los R Tutoria
 
 ### Inglés:  
 Welcome everyone. On this page, you will find the prompts for the R Tutorials that we will work on during class.
-<br><br><br>
+<br><br>
 
-
-
-<hr style="border: 1px solid #ccc;">
-## Lectures:
-### Module 1: [Course Intro, R, RStudio & Syntax](classes/Module 1 Course Intro, R, Rstudio and sintax/Course_Introduction.html)
-
-
-### Module 2: [Markdown](classes/Module 2 Markdown/Basic-Sintax-and-Markdown.html)
-<br>
-
-<hr style="border: 1px solid #ccc;">
-## Tips and helpful reminders
-### [Tips and Tricks](assignments/tips to work/tips-to-work.html)
-<br>
-
-<hr style="border: 1px solid #ccc;">
-
-<!--
 <hr style="border: 1px solid #ccc;">
 
 ## R Tutorials Prompts:
-
 ### [RTutorial 1](assignments/assignments_1/homework1.html)
 ### [RTutorial 2](assignments/assignments_2/assignments2.html)
 ### [RTutorial 3](assignments/assignment_3/assignment3.html)
@@ -48,7 +29,6 @@ Welcome everyone. On this page, you will find the prompts for the R Tutorials th
 <br>
 
 <hr style="border: 1px solid #ccc;">
-
 
 ## Study Guide (MidTerm)
 ### [Base R](assignments/exam practice/Study-Guide.html)
@@ -65,7 +45,13 @@ Welcome everyone. On this page, you will find the prompts for the R Tutorials th
 ### [practice](assignments/exam practice/practice.html)
 <br>
 
+<hr style="border: 1px solid #ccc;">
 
+## Tips and helpful reminders
+### [Tips and Tricks](assignments/tips to work/tips-to-work.html)
+<br>
+
+<hr style="border: 1px solid #ccc;">
 
 ## Study Guide (**Fina Exam**)
 ### [Plots in Base R](study guide\final exam\Base-R.html)
@@ -88,7 +74,7 @@ Welcome everyone. On this page, you will find the prompts for the R Tutorials th
 
 ## Final Exam
 ### [Final Exam (Fall 2025)](assignments/final_exam/final_exam.html)
--->
+
 <br><br>
 
 
