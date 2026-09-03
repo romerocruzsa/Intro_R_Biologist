@@ -26,5 +26,30 @@ output:
   <img src="https://romerocruzsa.github.io/img/profile-picture.png" style="width: 25%; aspect-ratio: 1 / 1;"/>
 </p>
 
+# About me
+**I'm [Sebastián](https://linkedin.com/in/romerocruzsa), a computer scientist and bioengineer from the University of Puerto Rico at Mayagüez.** I'm also co-founder of [Capicú](https://capicu.ai), a deep-tech startup building tiny AI for Biomanufacturing, removing product loss and cloud costs from the loop. <br> My previous research has been through summer stints at the University of Iowa, NVIDIA, MIT, Apple/USC, and more. During my final undergrad years, I worked under [Dr. Wilfredo Lugo Beauchamp](https://linkedin.com/in/wilfredo-lugo-beauchamp-0b083838) in applied Edge AI for remote smart health & computer vision applications. My graduate research, under advisement of [Dr. Maribella Domenech](https://linkedin.com/in/maribella-domenech-7ab17526), has been studying how mechanical cues affect extracellular vesicle (EV) production and what proteins in the EV surface can be leveraged for targeted cell therapies. 
+
+## Table
+|A|B|C|
+|-|-|-|
+|1|2|3|
+
+## Chunks
+Echo=FALSE
+```{r echo=FALSE}
+print("What's 9 plus 10?")
+print("21")```
+Message=FALSE
+```{r message=FALSE}
+print("What's 9 plus 10?")
+print("21")
+```
+
+Warnings=TRUE
+```{r warning=TRUE}
+library(ggplot2)
+```
+
+
 
 
