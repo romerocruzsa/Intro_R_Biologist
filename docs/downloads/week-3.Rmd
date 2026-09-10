@@ -1,0 +1,17 @@
+---
+title: "Introduction to R Basics"
+subtitle: "BIOL6994/BIOL6997"
+author: "Sebastian A. Cruz Romero"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I: %M %p')`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+<div style="text-align: center;">
+<img src="https://romerocruzsa.github.io/img/profile-picture.png" width="50%">
+</div>
+
+# About Me
+_"La revolucioOOoOoOOon"_ <br> WY Records, 2009
