@@ -175,31 +175,48 @@ course_navigation <- function(download_path = NULL) {
   )
 }
 
-inject_course_chrome <- function(html, download_path) {
-  stylesheet <- paste0(
+inject_course_header <- function(html, download_path) {
+  font_links <- paste0(
     "\n",
     '  <link rel="preconnect" href="https://fonts.googleapis.com">', "\n",
     '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>', "\n",
-    '  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">', "\n",
-    '  <link rel="stylesheet" href="', versioned_stylesheet("../assets/css/course.css"), '">', "\n"
+    '  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">', "\n"
+  )
+  header <- paste0(
+    '<nav aria-label="Course navigation" ',
+    'style="position:sticky;z-index:2147483647;top:0;width:100%;',
+    'margin:0;padding:0;color:#fff;background:#1c1e21;',
+    'border:0;border-bottom:1px solid rgba(255,255,255,.14);',
+    'font:400 16px/1.2 Roboto,Arial,sans-serif">',
+    '<div style="display:flex;width:min(calc(100% - 40px),980px);',
+    'min-height:58px;margin:0 auto;padding:0;align-items:center;',
+    'justify-content:space-between;gap:20px">',
+    '<a href="../" style="color:#fff59d;font:700 16px/1.2 Roboto,Arial,sans-serif;',
+    'text-decoration:none">Introduction to R for Biologists</a>',
+    '<div style="display:flex;align-items:center;gap:18px">',
+    '<a href="../" style="color:#fff;font:400 14px/1.2 Roboto,Arial,sans-serif;',
+    'text-decoration:none">Course home</a>',
+    '<a href="', download_path, '" download ',
+    'style="padding-left:18px;color:#fff;border-left:',
+    '1px solid rgba(255,255,255,.24);font:400 14px/1.2 Roboto,Arial,sans-serif;',
+    'text-decoration:none">Download source</a>',
+    "</div></div></nav>"
   )
 
   html <- sub(
     "</head>",
-    paste0(stylesheet, "</head>"),
+    paste0(font_links, "</head>"),
     html,
     ignore.case = TRUE
   )
 
-  navigation <- course_navigation(download_path)
-  html <- sub(
+  sub(
     "(<body[^>]*>)",
-    paste0("\\1\n", navigation, '\n<div id="main-content" class="course-rendered-content">'),
+    paste0("\\1\n", header),
     html,
     perl = TRUE,
     ignore.case = TRUE
   )
-  sub("</body>", "</div>\n</body>", html, ignore.case = TRUE)
 }
 
 render_source_page <- function(item) {
@@ -243,7 +260,11 @@ render_homepage <- function(items) {
         html_escape(item$title),
         "</a>",
         "</td>",
-        '<td class="resource-file">', html_escape(basename(item$source_path)), "</td>",
+        '<td class="resource-file">',
+        '<a href="downloads/', html_escape(item$download_name), '" download>',
+        html_escape(basename(item$source_path)),
+        "</a>",
+        "</td>",
         "</tr>"
       )
     }, character(1))
@@ -405,7 +426,7 @@ for (item in items) {
   if (!is.null(rendered_path)) {
     rendered_html <- read_text(rendered_path)
     if (is_self_contained_html(rendered_html)) {
-      output_html <- inject_course_chrome(
+      output_html <- inject_course_header(
         rendered_html,
         paste0("../downloads/", item$download_name)
       )
