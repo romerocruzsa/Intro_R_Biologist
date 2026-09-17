@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datasets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/course.css?v=52de2279d1af">
+</head>
+<body class="course-shell">
+<a class="skip-link" href="#main-content">Skip to content</a><nav class="course-nav" aria-label="Course navigation"><div class="course-nav__inner"><a class="course-nav__brand" href="../">Introduction to R for Biologists</a><div class="course-nav__links"><a href="../">Course home</a><a href="../downloads/datasets.R" class="course-nav__source" download>Download source</a></div></div></nav><main id="main-content" class="course-page"><header class="page-heading"><p class="eyebrow">R source</p><h1>Datasets</h1><p class="page-summary">This file is displayed without executing its R code.</p></header><pre class="source-code" tabindex="0"><code># Package install
+# install.packages(&quot;palmerpenguins&quot;)
+# install.packages(&quot;ggplot2&quot;)
+# install.packages(&quot;dplyr&quot;)
+
+# Load libraries
+library(palmerpenguins)
+library(ggplot2)
+library(dplyr)
+library(readr)
+
+citation(&quot;ggplot2&quot;)
+
+# Inspect penguins dataset
+data(&quot;penguins&quot;)
+head(penguins)
+tail(penguins,2)
+summary(penguins)
+
+sec.column &lt;- penguins[,2]
+sec.column
+
+penguins[3:5, 3]
+mean(penguins$body_mass,na.rm=TRUE)
+mean(penguins$body_mass)
+
+table(penguins$island)
+prop.table(table(penguins$island))
+
+fahrenheit_to_celsius &lt;- function(temp_F) {
+  temp_C &lt;- ((temp_F - 32)*5)/9
+  return(temp_C)
+}
+
+fahrenheit_to_celsius(100)
+
+storms &lt;- read.csv(&quot;assignments/datasets/storms.csv&quot;)
+View(storms)
+summary(storms)
+
+# partition a hurricane subset
+hurricane &lt;- storms[storms$status == &quot;hurricane&quot;, c(&#39;name&#39;, &#39;year&#39;, &#39;category&#39;, &#39;pressure&#39;, &#39;wind&#39;)]
+head(hurricane)
+
+# select specific columns in our hurricance subset
+hurricane &lt;- hurricane[, c(&#39;name&#39;, &#39;year&#39;, &#39;category&#39;, &#39;pressure&#39;, &#39;wind&#39;)]
+
+# categorize? hurricanes by their wind speed
+wind_speed &lt;- function(wind) {
+  if(wind&lt;80){&quot;Low wind speed&quot;}
+  else if(wind&lt;110){&quot;Moderate wind speed&quot;}
+  else{&quot;Huff and puff and puff (High wind speed)&quot;}
+}
+# wind_speed(hurricane[1000,&quot;wind&quot;])
+
+hurricane$windclass &lt;- sapply(
+  hurricane$wind, wind_speed)
+
+head(hurricane)</code></pre></main><footer class="course-footer"><p>Introduction to R for Biologists</p></footer>
+</body>
+</html>
+
