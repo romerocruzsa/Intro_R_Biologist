@@ -4,37 +4,57 @@ Course assignments, study guides, and R tutorials published at:
 
 <https://romerocruzsa.github.io/Intro_R_Biologist/>
 
-## Publishing course materials
+## Adding new course work
 
-The website is a static GitHub Pages site built into `docs/`. It deliberately
-uses base R and pre-rendered HTML instead of Quarto or a server-side framework.
+Put every new assignment or project inside the `assignments` folder.
 
-1. Add an `.Rmd` or `.R` file anywhere under `assignments/`.
-2. For an `.Rmd`, knit it in RStudio if the page should include executed output
-   and plots. Leave the generated `.html` beside its source file.
-3. Run:
+For example, create this file for Homework 2:
+
+```text
+assignments/homework-2/homework-2.Rmd
+```
+
+You can also add data, images, and other files to the same folder.
+
+## Publishing the website
+
+1. If you added an `.Rmd` file, knit it in RStudio. Keep the generated HTML file
+   beside the R Markdown file and use the same filename:
+
+   ```text
+   assignments/homework-2/homework-2.Rmd
+   assignments/homework-2/homework-2.html
+   ```
+
+2. From the main project folder, run:
 
    ```sh
    Rscript build_site.R
    ```
 
-4. Review `docs/index.html`, then commit the source and regenerated `docs/`
-   files together.
+3. Open `docs/index.html` and check the new page.
+4. Commit the new course files and the updated `docs` folder together.
+
+Do not add course work directly to `docs`. The publishing script rebuilds that
+folder.
+
+## How publishing works
+
+- The script publishes `.R` and `.Rmd` files found inside `assignments`.
+- A knitted HTML file keeps its R Markdown design. The script only adds the
+  course header.
+- If an `.Rmd` file has no matching HTML file, the website displays its source
+  code without running it.
+- Plain `.R` files are also displayed as source code and are not executed.
+- The course homepage includes a download link for each source file.
 
 Inherited materials listed in `site/hidden_sources.txt` are excluded from the
-homepage, generated routes, and downloads. Remove a path from that file only
-when the material is ready to publish.
+website. Remove a file path from that list when you are ready to publish it.
 
-The public URL is derived from the filename using lowercase kebab case. For
-example:
+The website address comes from the filename. For example:
 
 - `assignment_4.Rmd` becomes `/Intro_R_Biologist/assignment-4/`
 - `Study Guide dplyr.Rmd` becomes `/Intro_R_Biologist/study-guide-dplyr/`
-
-Each page also provides the original source as a download. Plain `.R` files are
-shown as code and are never executed during publication. If an `.Rmd` has no
-matching self-contained HTML file, its source is shown instead, so a missing R
-package cannot break the website build.
 
 ## GitHub Pages setting
 
