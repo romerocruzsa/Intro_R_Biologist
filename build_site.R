@@ -333,7 +333,7 @@ render_not_found <- function() {
     '<p><a class="text-link" href="./">Return to the course homepage</a></p>',
     "</main>"
   )
-  page_document("Page not found · Introduction to R for Biologists", body)
+  page_document("Page not found - Introduction to R for Biologists", body)
 }
 
 source_paths <- list.files(
