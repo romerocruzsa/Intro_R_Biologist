@@ -76,6 +76,9 @@ relative_to <- function(path, base) {
 group_for <- function(relative_path) {
   top_directory <- strsplit(dirname(relative_path), "/", fixed = TRUE)[[1]][[1]]
 
+  if (grepl("^r[_ -]?tutorials?$", top_directory, ignore.case = TRUE)) {
+    return("R Tutorials")
+  }
   if (grepl("^assignment[_ -]?[0-9]+$", top_directory, ignore.case = TRUE)) {
     return("Assignments")
   }
@@ -243,6 +246,7 @@ render_source_page <- function(item) {
 render_homepage <- function(items) {
   group_order <- c(
     "Assignments",
+    "R Tutorials",
     "Practice & Study Guides",
     "Exams",
     "Tips & Resources",
@@ -389,10 +393,11 @@ if (length(duplicate_slugs)) {
 
 group_rank <- c(
   "Assignments" = 1L,
-  "Practice & Study Guides" = 2L,
-  "Exams" = 3L,
-  "Tips & Resources" = 4L,
-  "Other Resources" = 5L
+  "R Tutorials" = 2L,
+  "Practice & Study Guides" = 3L,
+  "Exams" = 4L,
+  "Tips & Resources" = 5L,
+  "Other Resources" = 6L
 )
 item_order <- order(
   group_rank[vapply(items, `[[`, character(1), "group")],
