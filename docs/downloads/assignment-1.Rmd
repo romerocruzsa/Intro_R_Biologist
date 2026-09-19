@@ -1,0 +1,93 @@
+---
+title: "Assignment 1"
+subtitle: "BIOL6994/BIOL6997"
+author: "Sebastian A. Cruz Romero"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I: %M %p')`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+## Q1. Assigning values
+
+```{r q1}
+height <- 175
+height
+```
+
+## Q2. Simple math
+
+```{r q2}
+25 * 4 - 10
+```
+
+## Q3. Using functions
+
+```{r q3}
+sqrt(81)
+```
+
+## Q4. Character objects
+
+```{r q4}
+message <- "R is fun!"
+message
+```
+
+## Q5. Object manipulation
+
+```{r q5}
+a <- 10
+b <- 5
+c <- a + b
+c
+```
+
+## Q6. Logical comparison
+
+```{r q6}
+15 > 20
+```
+
+## Q7. Checking classes
+
+```{r q7}
+class("Hello World")
+```
+
+## Q8. Code chunk options
+
+No `warning` argument
+```{r q8step1}
+log(-1)
+```
+`warning=FALSE`
+```{r q8step2, warning=FALSE}
+log(-1)
+```
+
+The warning appeared before adding `warning=FALSE`. After adding the option, the warning was hidden, but the result was still `NaN`.
+
+## Q9. Code chunk options
+
+No `message` argument
+```{r q9step1}
+# Load a package (may produce messages)
+library(dplyr)
+```
+`message=FALSE`
+```{r q9step2, message=FALSE}
+# Load a package (may produce messages)
+library(dplyr)
+```
+
+The package messages appeared before adding `message=FALSE`. After adding the option, the messages were hidden.
+
+## Q10. Creating and analyzing a vector
+
+```{r q10}
+grades <- c(80, 90, 75, 95, 85)
+average <- mean(grades)
+average
+```
