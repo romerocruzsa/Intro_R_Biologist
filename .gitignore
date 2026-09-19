@@ -47,3 +47,8 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 .positai
+
+# Private MSC-EV research data and teaching copies
+16_engagement_ligands.tsv
+16_lr_pairs.tsv
+data/msc_ev/
