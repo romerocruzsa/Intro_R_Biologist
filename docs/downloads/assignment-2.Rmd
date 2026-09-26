@@ -1,0 +1,100 @@
+---
+title: "Assignment 2"
+subtitle: "BIOL6994/BIOL6997"
+author: "Sebastian A. Cruz Romero"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I: %M %p')`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+## Q1. Using functions
+
+```{r q1}
+BOD_list <- as.list(BOD)
+BOD_list
+```
+
+## Q2. Converting matrix into DataFrame
+
+```{r q2}
+df1 <- data.frame(
+  Name = c("a", "b", "c", "d"),
+  Age = c(12, 34, 23, 67),
+  BMI = c(22, 12, 10, 11),
+  Country = c("Malaysia", "India", "Spain", "England")
+)
+df1
+```
+
+## Q3. Accessing 1st & 2nd rows
+
+```{r q3}
+df <- data.frame(
+  Name = c(
+    "Raju", "Kumar", "Chandru", "Deepak", "Raina",
+    "Dhoni", "Hema", "Vandana", "Bela", "Anand"
+  ),
+  Age = c(12, 34, 23, 67, 23, 43, 23, 38, 34, 12),
+  Gender = c("M", "M", "M", "M", "M", "M", "F", "F", "F", "M"),
+  Country = c(
+    "Malaysia", "India", "Spain", "England", "Malaysia",
+    "Malaysia", "India", "Egypt", "Italy", "Peru"
+  )
+)
+
+first_two_rows <- df[1:2, ]
+first_two_rows
+```
+
+## Q4. Accessing 1st & 2nd columns
+
+```{r q4}
+first_two_columns <- df[, 1:2]
+first_two_columns
+```
+
+## Q5. Sorting the dataframe
+
+```{r q5}
+sorted_df <- df[order(df$Age), ]
+sorted_df
+```
+
+## Q6. Adding a new column
+
+```{r q6}
+df_with_score <- df
+df_with_score$Score <- c(85, 90, 78, 88, 90, 92, 80, 90, 87, 100)
+df_with_score
+```
+
+## Q7. Filtering rows with a condition
+
+```{r q7}
+age_over_30 <- df[df$Age > 30, ]
+age_over_30
+```
+
+## Q8. Renaming columns
+
+```{r q8}
+renamed_df <- df
+names(renamed_df) <- c("Person", "Years", "Gender", "Nation")
+renamed_df
+```
+
+## Q9. Selecting multiple conditions
+
+```{r q9}
+selected_rows <- df1[df1$Age > 20 & df1$BMI < 15, ]
+selected_rows
+```
+
+## Q10. Summarizing a column
+
+```{r q10}
+average_age <- mean(df1$Age)
+average_age
+```
