@@ -13,7 +13,7 @@ output:
 
 ```{r q1}
 BOD_list <- as.list(BOD)
-BOD_list
+head(BOD_list, 6)
 ```
 
 ## Q2. Converting matrix into DataFrame
@@ -25,7 +25,7 @@ df1 <- data.frame(
   BMI = c(22, 12, 10, 11),
   Country = c("Malaysia", "India", "Spain", "England")
 )
-df1
+head(df1, 6)
 ```
 
 ## Q3. Accessing 1st & 2nd rows
@@ -45,21 +45,21 @@ df <- data.frame(
 )
 
 first_two_rows <- df[1:2, ]
-first_two_rows
+head(first_two_rows, 6)
 ```
 
 ## Q4. Accessing 1st & 2nd columns
 
 ```{r q4}
 first_two_columns <- df[, 1:2]
-first_two_columns
+head(first_two_columns, 6)
 ```
 
 ## Q5. Sorting the dataframe
 
 ```{r q5}
 sorted_df <- df[order(df$Age), ]
-sorted_df
+head(sorted_df, 6)
 ```
 
 ## Q6. Adding a new column
@@ -67,14 +67,14 @@ sorted_df
 ```{r q6}
 df_with_score <- df
 df_with_score$Score <- c(85, 90, 78, 88, 90, 92, 80, 90, 87, 100)
-df_with_score
+head(df_with_score, 6)
 ```
 
 ## Q7. Filtering rows with a condition
 
 ```{r q7}
 age_over_30 <- df[df$Age > 30, ]
-age_over_30
+head(age_over_30, 6)
 ```
 
 ## Q8. Renaming columns
@@ -82,19 +82,19 @@ age_over_30
 ```{r q8}
 renamed_df <- df
 names(renamed_df) <- c("Person", "Years", "Gender", "Nation")
-renamed_df
+head(renamed_df, 6)
 ```
 
 ## Q9. Selecting multiple conditions
 
 ```{r q9}
 selected_rows <- df1[df1$Age > 20 & df1$BMI < 15, ]
-selected_rows
+head(selected_rows, 6)
 ```
 
 ## Q10. Summarizing a column
 
 ```{r q10}
 average_age <- mean(df1$Age)
-average_age
+head(average_age, 6)
 ```
